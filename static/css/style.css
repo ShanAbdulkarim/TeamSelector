@@ -1,0 +1,134 @@
+/* This is for every page */
+* {
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background-color:blue;
+    color:white;
+}
+
+.link{
+    background-color:blue;
+    padding:5px;
+    margin-bottom:15px;
+    color:white;
+}
+#line{
+    display: flex;
+    flex-direction: row;
+    margin-left:auto;
+    margin-right:auto;
+    gap:1em;
+    text-align: center;
+    justify-content: center;
+}
+
+.big{
+    text-align:center;
+    background-color:navy;
+    padding:1rem;
+    border-radius: 10px;
+}
+/* Team Select */
+.custom-form {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: navy;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.button{
+    background-color: navy;
+    box-shadow: 0 2px 3px rgba(97, 70, 255, 0.1);
+    color:white;
+}
+
+img{
+    width:100px;
+    height:100px;
+}
+
+/* Verifying Page */
+
+
+/* selection page */
+
+.teamnames{
+    text-align:left;
+    color:white;
+}
+#next{
+    background-color:blue;
+    margin: 5px;
+    padding:5px;
+}
+#toggle{
+    background-color: blue;
+    margin:5px;
+    padding: 5px;
+    color:white;
+    border: none;
+}
+#playerselect{
+    margin-top:2rem;
+    display:flex;
+    width:100%;
+    justify-content: center;
+}
+.title{
+    font-size:2em;
+    text-align:center;
+}
+#teams{
+    display: none;
+}
+#roundpick{
+    width:100%;
+}
+#round{
+    text-align: left;
+}
+
+#pick{
+    text-align: right;
+}
+#exit{
+    position: absolute;
+    top:10px;
+    left:10px;
+    color:white;
+}
+a:link{
+    color:white;
+}
+a:visited{
+    color:white;
+}
+a:hover{
+    background-color:rgb(0,0,0,0.3);
+}
+/* Completed Page */
+
+.bigflex{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+}
+.flex{
+    display: flex;
+    flex-direction: column;
+    width:20em;
+    white-space: nowrap;
+}
+
+/* Saved Games */
+
+.savedlinks{
+    color:white;
+}
+#text{
+    color:white;
+}
