@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Verify Teams </title>
+        
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        {% block content%} 
+        <h1 class = "title"> Are you happy with your team selection? </h1>
+        <div class = "big">
+        {% if selected is None %}
+            <p>No teams were selected.</p>
+            <a href = "teamselect.html" class = "link">Go back</a> 
+        {% else %}
+            <h2> Your teams: <h2>
+            <h3> {{ selected }} </h3>
+            <div class = "big" id = "line">
+            <a href = "{% url 'home' %}?change_players=True" class = "link">Yes! Time to select the players!  </a>
+            <a href = "teamselect.html" class = "link">No, I'd like to go back</a> 
+            </div>
+            {% for tim in teams %}
+                <p> {{ tim.name }} - {{ tim.selected }}
+            {% endfor %}
+        {% endif %}
+        </div>
+        {% endblock %}
+    </body>
+</html>

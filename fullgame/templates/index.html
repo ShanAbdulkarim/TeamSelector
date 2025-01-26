@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Welcome to Sports Games! </title>
+        
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        {% block content%} 
+        <div class = "big">
+        <h1 class = "title"> Welcome! </h1>
+        <a href = "teamselect.html" class = "link"> New Game </a>
+        <a href = "{% url 'saveorlogin' %}" class = "link"> Load Game </a>
+        </div>
+        {% endblock %}
+    </body>
+</html>

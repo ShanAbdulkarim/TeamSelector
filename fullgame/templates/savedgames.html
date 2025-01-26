@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Saved Games</title>
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% block content %}
+    <h1> Saved Games </h1>
+    <a class = "link" href = "{% url 'index' %}"> Home </a>
+    <ul>
+        {% for saved in savedgames %}
+            <li> 
+                <a class = "savedlinks" href="{% url 'loadsaved' saved.id %}">{{ saved.gamename }}</a>
+                <a class = "link" href = "?game={{ saved.id }}"> X </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+     
+     {% load static %}
+     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+     {% block title%}{% endblock %}
+     <h1> Teams </h1>
+     <a class = "link" href = "{% url 'index' %}"> Home </a>
+     {% block content%}
+     <div class = "bigflex">
+     {% for tim in teams %}
+     <div class = "flex">
+     <h1> {{ tim.name }} </h1>
+          {% for p in player %}
+               {% if p.team == tim %}
+                    <p> {{ p.firstname }} {{ p.lastname }} - {{ p.position }} </p>
+               {% endif %}
+          {% endfor %}
+     </div>
+     {% endfor %}
+     </div>
+     <div class = "bigflex">
+     <form method="POST" action="{% url 'saveorlogin' %}" >
+          {% csrf_token %}
+          <input class = "link" type="submit" value="Save Game">
+     </form>
+     <form method="POST" action="{% url 'savedgames' %}" >
+          {% csrf_token %}
+          <input class = "link" type="submit" value="View Saves">
+     </form>
+     </div>
+     {% endblock %}
+</body>
+</html>

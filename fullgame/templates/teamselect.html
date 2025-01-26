@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title> Select your Team: </title>
+        
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        {% block content%} 
+
+        <h1 class = "title"> Select your Team: </h1>
+        <form method = "POST" action = "{% url 'verified' %}" class = "custom-form"> 
+            {% csrf_token %} 
+            {{ form.as_p }}
+        <div class = "big"> 
+        <input type = "submit" value = "submit" class = "button">
+        </div>
+        </form>
+        
+        {% endblock %}
+    </body>
+</html>

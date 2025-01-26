@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Selection </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h1 class = "title"> Premier League <br> Player Select </h1>
+    {% block content%} 
+    <a href = {% url 'index' %} id = "exit"> X </a>
+    <div class = "bigflex" class = "roundpick">
+        <h2 id = "round"> Round {{ round }} </h2>
+        <h2 id = "pick"> Pick {{ pick }} </h2>
+    </div>
+    <div class = "big">
+    <table id = "playerselect">
+        {% if current_team.selected == True %}
+        <p> {{ current_team.name }} have selected </p>
+        <tr>
+            {% if sort_order == "asc" %}
+                <th><a class = "columns" href="?sort_by=firstname&sort_order=desc"> First Name </a></th>
+                <th><a class = "columns" href="?sort_by=lastname&sort_order=desc"> Last Name </a></th>
+                <th><a class = "columns" href="?sort_by=position&sort_order=desc"> Position </a></th>
+                <th><a class = "columns" href="?sort_by=age&sort_order=desc"> Age </a></th>
+                <th><a class = "columns" href="?sort_by=overall&sort_order=desc"> Overall </a></th>
+                <th><a class = "columns" href="?sort_by=height&sort_order=desc"> Height </a></th>
+                <th><a class = "columns" href="?sort_by=weight&sort_order=desc"> Weight </a></th>
+                <th><a class = "columns" href="?sort_by=speed&sort_order=desc"> Speed </a></th>
+                <th><a class = "columns" href="?sort_by=shooting&sort_order=desc"> Shooting </a></th>
+                <th><a class = "columns" href="?sort_by=passing&sort_order=desc"> Passing </a></th>
+                <th><a class = "columns" href="?sort_by=dribbling&sort_order=desc"> Dribbling </a></th>
+                <th><a class = "columns" href="?sort_by=defending&sort_order=desc"> Defending </a></th>
+                <th><a class = "columns" href="?sort_by=physical&sort_order=desc"> Physical </a></th>
+                <th><a class = "columns" href="?sort_by=tradevalue&sort_order=desc"> Tradevalue </a></th>
+                 
+            {% else %}
+                <th><a href="?sort_by=firstname&sort_order=asc"> First Name </a></th>
+                <th><a href="?sort_by=lastname&sort_order=asc"> Last Name </a></th>
+                <th><a href="?sort_by=position&sort_order=asc"> Position </a></th>
+                <th><a href="?sort_by=age&sort_order=asc"> Age </a></th>
+                <th><a href="?sort_by=overall&sort_order=asc"> Overall </a></th>
+                <th><a href="?sort_by=height&sort_order=asc"> Height </a></th>
+                <th><a href="?sort_by=weight&sort_order=asc"> Weight </a></th>
+                <th><a href="?sort_by=speed&sort_order=asc"> Speed </a></th>
+                <th><a href="?sort_by=shooting&sort_order=asc"> Shooting </a></th>
+                <th><a href="?sort_by=passing&sort_order=asc"> Passing </a></th>
+                <th><a href="?sort_by=dribbling&sort_order=asc"> Dribbling </a></th>
+                <th><a href="?sort_by=defending&sort_order=asc"> Defending </a></th>
+                <th><a href="?sort_by=physical&sort_order=asc"> Physical </a></th>
+                <th><a href="?sort_by=tradevalue&sort_order=asc"> Tradevalue </a></th>
+            {% endif %}
+        </tr>
+            {% for man in pl %}
+                {% if man.team == Arsenal %}
+                <tr>
+                    <td> {{ man.id }} {{ man.firstname }} </td>
+                    <td> {{ man.lastname }} </td>
+                    <td> {{ man.position }} </td>
+                    <td> {{ man.age }} </td>
+                    <td> {{ man.overall }} </td>
+                    <td> {{ man.height }} </td>
+                    <td> {{ man.weight }} </td>
+                    <td> {{ man.speed }} </td>
+                    <td> {{ man.shooting }} </td>
+                    <td> {{ man.passing }} </td>
+                    <td> {{ man.dribbling }} </td>
+                    <td> {{ man.defending }} </td>
+                    <td> {{ man.physical }} </td>
+                    <td> {{ man.tradevalue }} </td>
+                    <td> <a class = "columns" href = "?player_id={{ man.id }}&change_players=True"> Select </a>
+                </tr> 
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+        <p> {{ current_team.name }} have selected {{ selected_player.firstname }} {{ selected_player.lastname }} </p>
+        <a id = "next" href = "?change_players=True" onclick="preventRapidClicks(event)"> Next </a>
+                
+        {% endif %}
+        <button id = "toggle"> Team Summary </button>
+    </table>
+    </div>
+    <div>
+    <table style = "display:none;" id = "banger">
+        <caption>Team Summary</caption>
+        {% for tim in allteams %}
+            <thead>
+                <tr>
+                    <th class = "teamnames">{{ tim.name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for players in pl %}
+                    {% if players.team == tim %}
+                        <tr>
+                            <td>{{ players.firstname }} {{ players.lastname }}</td>
+                            <td>{{ players.position }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        {% endfor %}
+    </table>
+    </div>
+    <script>
+        toggled = true
+        console.log(toggled)
+        let toggle = document.getElementById("toggle")
+        let teamsummary = document.getElementById("banger")
+        let playerselect = document.getElementById("playerselect")
+        
+        toggle.addEventListener("click", function () {
+            if (toggled) {
+                teamsummary.style.display = "block";
+                playerselect.style.display = "none";
+            } else {
+                teamsummary.style.display = "none";
+                playerselect.style.display = "flex";
+            }
+            toggled = !toggled;
+        });    
+
+        let url = "base.html?sort_by=overall&sort_order=desc"
+        if (window.location.search.indexOf("change_players=True") > -1) {
+            history.replaceState(null, document.title, url);
+        }
+
+        function preventRapidClicks(event) {
+            const nextLink = event.currentTarget;
+        
+            // Disable the anchor tag
+            nextLink.style.pointerEvents = "none";
+            nextLink.style.opacity = "0.5";
+        
+            // Add a small delay before allowing another click (optional)
+            setTimeout(() => {
+                nextLink.style.pointerEvents = "auto";
+                nextLink.style.opacity = "1";
+            }, 1000); // 1-second delay; adjust as needed
+        }
+    </script>
+    {% endblock %}
+
+    
+</body>
+</html>
