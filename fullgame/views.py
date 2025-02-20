@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 import json
 
+# These variables are global and used throughout multiple views in the progam.
 import random
 team_number = 0
 pick = 0
@@ -15,12 +16,12 @@ random.shuffle(beams)
 
 
 
-# Create your views here.
+# This is for the main page that asks you whether or not you want to load or start a new game.
 def index(request):
     return render(request, "index.html")
 
 
-
+#This is the view that runs your teamselect page.
 def teamselect(request):
     global team_number
     global pick
@@ -29,9 +30,11 @@ def teamselect(request):
     context['form'] = teampicker()
     player = Players.objects.all()
     team = Teams.objects.all()
+#These two loops make sure that the teams are reset
     for tim in team:
         tim.selected = False
         tim.save()
+#These two loops make sure that the players are reset
     for pl in player:
         pl.team = None
         pl.save()
@@ -40,7 +43,7 @@ def teamselect(request):
     return render(request, 'teamselect.html', context)
 
 
-
+#This page runs the page that shows you which teams you have selected.
 def verified(request):
     selected = []
     teams = Teams.objects.all()
@@ -51,6 +54,7 @@ def verified(request):
         else:
             print("Your forms invalid buddy", form.errors)
         teams = Teams.objects.all()
+#this loop obtains exactly which teams are selected and makes that the case in the database. 
         for select in selected:
             for tim in teams:
                 if select.strip().lower() == tim.name.strip().lower():
@@ -62,15 +66,20 @@ def verified(request):
     return render(request, 'verify.html', {"selected":selected, 'teams':teams})
 
 
-
+#This is the page that actually conducts the playerselecting process
 def home(request):
-    
+
     firstteam = beams[0]
     allteams = Teams.objects.all()
+#The sort_by is used to decide what the players displayed for selection are all ordered by.
     sort_by = request.GET.get('sort_by', 'overall') 
+#The sort_order is used to decide whether the value goes from large to small or small to large
     sort_order = request.GET.get('sort_order', 'desc')
+#The change_players variable allows the webpage to know whether or not on this page load we are going to actually take a player from
+#no team to a team.
     change_players = request.GET.get('change_players', 'false')
     pl = Players.objects.all()
+#
     tim = Teams.objects.get(name=firstteam)
 
     global team_number
