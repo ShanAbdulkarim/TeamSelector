@@ -79,7 +79,6 @@ def home(request):
 #no team to a team.
     change_players = request.GET.get('change_players', 'false')
     pl = Players.objects.all()
-#
     tim = Teams.objects.get(name=firstteam)
 
     global team_number
@@ -90,7 +89,7 @@ def home(request):
     currteam = None
     thesecondcodeisrunning = False
 
-    #Player display code
+#This code is used when a player clicks on a category to change the way the players are listed.
     players = None
     if sort_order == 'asc':
         players = Players.objects.all().order_by(sort_by)
@@ -102,22 +101,10 @@ def home(request):
     except (IndexError, Teams.DoesNotExist):
         currteam = None
 
-        
     if request.GET.get('sort_by'):
             print(beams[team_number])
             return render(
-                request,
-                "base.html",
-                {
-                    'pl': players,
-                    'sort_by': sort_by,
-                    'sort_order': sort_order,
-                    'current_team': currteam,
-                    'allteams': allteams,
-                    'selected_player': selected_player,
-                    'teamthatselected': teamThatPreviouslySelected,
-                    'compteam':beams[team_number]
-                },
+                request,"base.html",{'pl': players,'sort_by': sort_by,'sort_order': sort_order,'current_team': currteam,'allteams': allteams,'selected_player': selected_player,'teamthatselected': teamThatPreviouslySelected,'compteam':beams[team_number]},
             )
     gamestate = False
     team = None
