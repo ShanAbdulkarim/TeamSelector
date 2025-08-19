@@ -10,7 +10,7 @@ import json
 import random
 team_number = 0
 pick = 0
-beams = ["Arsenal", "Aston Villa", "Brighton", "Bournemouth", "Brentford", "Chelsea", "Crystal Palace", "Everton", "Fulham", "Ipswich Town", "Leicester City", "Liverpool", "Manchester City", "Manchester United", "Newcastle United", "Nottingham Forest", "Southampton", "Tottenham Hotspur", "West Ham United", "Wolverhampton Wanderers"]
+beams = ["Arsenal", "Aston Villa", "Brighton", "Bournemouth", "Brentford", "Chelsea", "Crystal Palace", "Everton", "Fulham", "Ipswich Town", "Leicester City", "Liverpool", "Manchester City", "Manchester United", "Newcastle", "Nottingham Forest", "Southampton", "Tottenham", "West Ham", "Wolverhampton Wanderers"]
 
 random.shuffle(beams)
 
@@ -397,3 +397,4 @@ def loadsaved(request, savedgameid):
 
 
     return redirect('completed')
+
